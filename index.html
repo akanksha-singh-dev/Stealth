@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StealthEra — Longitudinal Health Intelligence Layer</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./src/ui/dashboard.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="brand-container">
+      <div class="brand-logo">SE</div>
+      <div>
+        <div class="brand-title">StealthEra Health Intelligence</div>
+        <div class="brand-subtitle">Longitudinal Baseline & Explainable NLG Layer</div>
+      </div>
+    </div>
+
+    <div class="patient-selector-wrapper">
+      <label for="patientSelect" style="font-size: 0.85rem; color: var(--text-muted);">Select Clinical Scenario:</label>
+      <select id="patientSelect" class="patient-select"></select>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dashboard-container">
+    
+    <!-- Left Main Panel -->
+    <div class="main-panel">
+
+      <!-- Patient Banner -->
+      <section class="patient-banner">
+        <div class="patient-meta">
+          <div class="patient-name-row">
+            <h1 class="patient-name" id="patientName">Loading...</h1>
+            <span id="riskBadge" class="badge badge-low">NORMAL</span>
+          </div>
+          <div class="patient-details" id="patientMetaDetails">Loading patient details...</div>
+          <div style="font-size: 0.82rem; color: var(--accent-cyan); margin-top: 4px;" id="patientScenarioDesc"></div>
+        </div>
+
+        <div class="risk-dial-container">
+          <div class="risk-circle" id="riskCircle">
+            <span class="risk-score-num" id="riskScoreNum">0</span>
+            <span class="risk-score-lbl">RISK INDEX</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Telemetry Time Series Chart Card -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Longitudinal Telemetry vs Adaptive Baseline
+          </h2>
+          <div class="metric-tabs" id="metricTabs"></div>
+        </div>
+
+        <div class="chart-wrapper">
+          <canvas id="mainTelemetryChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Explainable Clinical Observation NLG Feed -->
+      <section class="card observation-card">
+        <div class="card-title-row">
+          <h2 class="card-title" style="color: var(--accent-rose);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Explainable Clinical Observation Note (NLG)
+          </h2>
+          <div style="display: flex; gap: 10px;">
+            <button id="inspectFhirBtn" class="btn-secondary">Inspect FHIR R4</button>
+            <button id="injectAnomalyBtn" class="btn-primary">Simulate Acute Anomaly</button>
+          </div>
+        </div>
+
+        <h3 id="obsHeadline" class="observation-headline">...</h3>
+        <div id="obsNarrative" class="narrative-box">...</div>
+
+        <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase;">
+          Recommended Clinical Actions
+        </h4>
+        <div id="obsActionsList" class="actions-list"></div>
+      </section>
+
+    </div>
+
+    <!-- Right Sidebar Panel -->
+    <aside class="sidebar-panel">
+
+      <!-- Synergy Radar Card -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">Multi-Signal Synergy Radar</h2>
+        </div>
+        <div class="radar-wrapper">
+          <canvas id="synergyRadarChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Evidence & Audit Table Card -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">Evidence Audit Trail</h2>
+        </div>
+        <table class="evidence-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Obs.</th>
+              <th>Base</th>
+              <th>Normal Range</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="evidenceTableBody"></tbody>
+        </table>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- FHIR Modal Dialog -->
+  <div id="fhirModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.1rem; font-weight: 600;">HL7 FHIR R4 RiskAssessment Resource JSON</h3>
+        <button id="closeFhirModal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <pre id="fhirJsonContent"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/ui/app.js"></script>
+</body>
+</html>
