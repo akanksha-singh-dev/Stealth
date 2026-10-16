@@ -1,141 +1,744 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StealthEra — Longitudinal Health Intelligence Layer</title>
-  
+  <title>StealthEra — Rehabilitation Intelligence Platform</title>
+  <meta name="description"
+    content="Longitudinal health intelligence dashboard for post-operative and rehabilitation monitoring. Explainable clinical observations for care teams.">
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="./src/ui/dashboard.css">
 </head>
+
 <body>
 
-  <!-- Header -->
-  <header class="app-header">
-    <div class="brand-container">
-      <div class="brand-logo">SE</div>
-      <div>
-        <div class="brand-title">StealthEra Health Intelligence</div>
-        <div class="brand-subtitle">Longitudinal Baseline & Explainable NLG Layer</div>
+  <!-- ===================== LEFT SIDEBAR ===================== -->
+  <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <div class="sidebar-wordmark">
+          <span class="brand-name">StealthEra</span>
+          <span class="brand-sub">Rehabilitation Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="nav-list" role="navigation">
+        <button class="nav-item active" data-page="monitoring" id="navMonitoring">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="14" y="14" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+          </svg>
+          <span>Overview</span>
+        </button>
+        <button class="nav-item active-indicator" data-page="monitoring" id="navPatientMonitoring">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <span>Patient Monitoring</span>
+        </button>
+        <button class="nav-item" data-page="trends" id="navTrends">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+            <polyline points="17 6 23 6 23 12" />
+          </svg>
+          <span>Longitudinal Trends</span>
+        </button>
+        <button class="nav-item" data-page="observations" id="navObservations">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
+          <span>Clinical Observations</span>
+        </button>
+        <button class="nav-item" data-page="reports" id="navReports">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+            <polyline points="13 2 13 9 20 9" />
+          </svg>
+          <span>Reports</span>
+        </button>
+        <button class="nav-item" data-page="quality" id="navQuality">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span>Data Quality</span>
+        </button>
+        <button class="nav-item" data-page="fhir" id="navFhir">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+          </svg>
+          <span>FHIR / Integrations</span>
+        </button>
+        <div class="nav-divider"></div>
+        <button class="nav-item" data-page="settings" id="navSettings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14" />
+          </svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="env-badge">
+        <span class="env-dot"></span>
+        Clinical Demo Environment
       </div>
     </div>
+  </nav>
 
-    <div class="patient-selector-wrapper">
-      <label for="patientSelect" style="font-size: 0.85rem; color: var(--text-muted);">Select Clinical Scenario:</label>
-      <select id="patientSelect" class="patient-select"></select>
-    </div>
-  </header>
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <div class="app-body">
 
-  <!-- Main Container -->
-  <main class="dashboard-container">
-    
-    <!-- Left Main Panel -->
-    <div class="main-panel">
+    <!-- Top Header Bar -->
+    <header class="top-header" role="banner">
+      <div class="header-left">
+        <div class="page-breadcrumb">
+          <span class="breadcrumb-item">StealthEra</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span class="breadcrumb-item active" id="currentPageTitle">Patient Monitoring</span>
+        </div>
+      </div>
 
-      <!-- Patient Banner -->
-      <section class="patient-banner">
-        <div class="patient-meta">
-          <div class="patient-name-row">
-            <h1 class="patient-name" id="patientName">Loading...</h1>
-            <span id="riskBadge" class="badge badge-low">NORMAL</span>
+      <div class="header-center">
+        <!-- Source mode toggle -->
+        <div class="source-mode-group" role="group" aria-label="Data source mode">
+          <button class="source-mode-btn active" id="btnModeDemo" aria-pressed="true">Demo Patients</button>
+          <button class="source-mode-btn" id="btnModeReal" aria-pressed="false">Real Dataset</button>
+        </div>
+
+        <!-- Demo patient selector (shown in Demo mode) -->
+        <div class="patient-selector-group" id="demoSelectorGroup">
+          <label for="patientSelect" class="selector-label">Patient:</label>
+          <select id="patientSelect" class="patient-select-input" aria-label="Select demo patient"></select>
+        </div>
+
+        <!-- Real dataset controls (shown in Real Dataset mode) -->
+        <div class="patient-selector-group hidden" id="realSelectorGroup">
+          <label for="realRecordingSelect" class="selector-label">Recording:</label>
+          <select id="realRecordingSelect" class="patient-select-input" aria-label="Select real recording">
+            <option value="">No file imported yet</option>
+          </select>
+          <button id="btnLoadBundled" class="btn-ghost btn-ghost-small"
+            title="Load the bundled PhysioNet S1/Final exam session (HR + Temp + HRV)" style="gap:4px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            Load S1-Final
+          </button>
+          <label for="csvFileInput" class="btn-ghost btn-ghost-small" style="cursor:pointer;"
+            title="Import Empatica E4 CSV files (select HR, TEMP and IBI files together)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Import CSV
+          </label>
+          <input type="file" id="csvFileInput" accept=".csv,.txt" multiple class="hidden"
+            aria-label="Import E4 CSV files (select HR, TEMP and IBI simultaneously)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="header-meta" id="headerLastUpdated">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span>14-day window</span>
+        </div>
+        <div class="header-status-pill" id="riskStatusPill">
+          <span class="status-dot"></span>
+          <span id="riskStatusText">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE VIEWS -->
+    <main class="main-workspace" role="main">
+
+      <!-- ======= PAGE: MONITORING ======= -->
+      <div class="page-view active" id="pageMonitoring">
+
+        <!-- Patient Summary Bar -->
+        <section class="patient-summary-bar" aria-label="Patient summary">
+          <div class="summary-cell summary-cell-main">
+            <div class="summary-label">Patient</div>
+            <div class="summary-value" id="summaryPatientName">—</div>
+            <div class="summary-sub" id="summaryPathway">—</div>
           </div>
-          <div class="patient-details" id="patientMetaDetails">Loading patient details...</div>
-          <div style="font-size: 0.82rem; color: var(--accent-cyan); margin-top: 4px;" id="patientScenarioDesc"></div>
-        </div>
+          <div class="summary-divider"></div>
+          <div class="summary-cell">
+            <div class="summary-label">Post-Op Day</div>
+            <div class="summary-value summary-value-lg" id="summaryPOD">—</div>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-cell">
+            <div class="summary-label">Monitoring Window</div>
+            <div class="summary-value" id="summaryWindow">14 days</div>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-cell">
+            <div class="summary-label">Risk Index</div>
+            <div class="summary-value" id="summaryRiskScore">—</div>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-cell">
+            <div class="summary-label">Active Findings</div>
+            <div class="summary-value" id="summaryFindings">—</div>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-cell">
+            <div class="summary-label">Trajectory</div>
+            <div class="summary-value summary-trajectory" id="summaryTrajectory">—</div>
+          </div>
+        </section>
 
-        <div class="risk-dial-container">
-          <div class="risk-circle" id="riskCircle">
-            <span class="risk-score-num" id="riskScoreNum">0</span>
-            <span class="risk-score-lbl">RISK INDEX</span>
+        <!-- Real Dataset info banner (visible only in real-data mode) -->
+        <div class="real-data-banner hidden" id="realDataBanner" role="complementary"
+          aria-label="Real recording metadata">
+          <div class="rdb-section">
+            <div class="rdb-label">File</div>
+            <div class="rdb-value" id="rdbFilename">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Source</div>
+            <div class="rdb-value" id="rdbSource">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Records</div>
+            <div class="rdb-value" id="rdbRecords">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Period</div>
+            <div class="rdb-value" id="rdbPeriod">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Signals</div>
+            <div class="rdb-value" id="rdbInterval">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Unit</div>
+            <div class="rdb-value" id="rdbUnit">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section">
+            <div class="rdb-label">Valid / Invalid</div>
+            <div class="rdb-value" id="rdbValidity">—</div>
+          </div>
+          <div class="rdb-divider"></div>
+          <div class="rdb-section rdb-section-wide">
+            <div class="rdb-label">Baseline Note</div>
+            <div class="rdb-value rdb-note" id="rdbBaselineNote">—</div>
           </div>
         </div>
-      </section>
 
-      <!-- Telemetry Time Series Chart Card -->
-      <section class="card">
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-            Longitudinal Telemetry vs Adaptive Baseline
-          </h2>
-          <div class="metric-tabs" id="metricTabs"></div>
+        <!-- Main two-column layout -->
+        <div class="workspace-grid">
+
+          <!-- LEFT COLUMN: Charts & Tables -->
+          <div class="workspace-main">
+
+            <!-- Telemetry Chart -->
+            <section class="panel" aria-labelledby="chartPanelTitle">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <h2 class="panel-title" id="chartPanelTitle">Longitudinal Telemetry</h2>
+                  <span class="panel-subtitle">Observed values vs. personal adaptive baseline</span>
+                </div>
+                <div class="panel-controls">
+                  <div class="metric-tab-bar" id="metricTabs" role="tablist" aria-label="Signal selector"></div>
+                  <div class="time-filter-bar" id="timeFilterBar" role="group" aria-label="Time window">
+                    <button class="time-filter-btn" data-window="7" aria-pressed="false">7d</button>
+                    <button class="time-filter-btn active" data-window="14" aria-pressed="true">14d</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-area">
+                <canvas id="mainTelemetryChart" aria-label="Telemetry time series chart"></canvas>
+              </div>
+              <div class="chart-legend-row" id="chartLegendRow">
+                <div class="legend-item"><span class="legend-line legend-observed"></span> Observed</div>
+                <div class="legend-item"><span class="legend-line legend-baseline"></span> Baseline median</div>
+                <div class="legend-item"><span class="legend-band"></span> Normal range</div>
+              </div>
+            </section>
+
+            <!-- Baseline & Deviation Panel -->
+            <section class="panel" aria-labelledby="baselinePanelTitle">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <h2 class="panel-title" id="baselinePanelTitle">Personal Baseline &amp; Deviation</h2>
+                  <span class="panel-subtitle">Compared to this patient's individual historical pattern</span>
+                </div>
+              </div>
+              <div class="baseline-grid" id="baselineGrid">
+                <div class="baseline-placeholder">Select a signal to view baseline statistics.</div>
+              </div>
+            </section>
+
+            <!-- Evidence Audit Table -->
+            <section class="panel" aria-labelledby="evidencePanelTitle">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <h2 class="panel-title" id="evidencePanelTitle">Evidence &amp; Signal Audit</h2>
+                  <span class="panel-subtitle">All monitored signals with deviation classification</span>
+                </div>
+                <div class="panel-actions">
+                  <button class="btn-ghost" id="exportEvidenceBtn" title="Export evidence table">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export
+                  </button>
+                </div>
+              </div>
+              <div class="table-scroll">
+                <table class="audit-table" role="table" aria-label="Signal audit evidence">
+                  <thead>
+                    <tr>
+                      <th scope="col">Signal</th>
+                      <th scope="col">Observed</th>
+                      <th scope="col">Baseline (median)</th>
+                      <th scope="col">Normal Range</th>
+                      <th scope="col">Δ Deviation</th>
+                      <th scope="col">Z-Score</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="evidenceTableBody"></tbody>
+                </table>
+              </div>
+            </section>
+
+          </div><!-- /workspace-main -->
+
+          <!-- RIGHT COLUMN: Clinical details -->
+          <aside class="workspace-aside" aria-label="Clinical details">
+
+            <!-- Clinical Context & Syndrome Scores -->
+            <section class="panel" aria-labelledby="contextPanelTitle">
+              <div class="panel-header">
+                <h2 class="panel-title" id="contextPanelTitle">Clinical Context &amp; Signal Assessment</h2>
+              </div>
+              <div class="context-disclaimer">
+                Experimental decision-support output. Not a validated diagnostic tool.
+              </div>
+
+              <div class="syndrome-rows" id="syndromeRows">
+                <!-- filled by JS -->
+              </div>
+
+              <div class="context-meta-block" id="contextMetaBlock">
+                <!-- filled by JS -->
+              </div>
+            </section>
+
+            <!-- Generated Clinical Observation -->
+            <section class="panel obs-panel" id="obsPanel" aria-labelledby="obsPanelTitle">
+              <div class="panel-header">
+                <h2 class="panel-title" id="obsPanelTitle">Generated Clinical Observation</h2>
+                <div class="panel-actions">
+                  <button class="btn-ghost" id="copyObsBtn" title="Copy observation text">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    Copy
+                  </button>
+                  <button class="btn-ghost" id="inspectFhirBtn" title="View FHIR R4 output">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="16 18 22 12 16 6" />
+                      <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    FHIR
+                  </button>
+                </div>
+              </div>
+
+              <div class="obs-gen-label">Observation Headline</div>
+              <h3 class="obs-headline" id="obsHeadline">—</h3>
+
+              <div class="obs-gen-label">Supporting Evidence</div>
+              <div class="obs-narrative" id="obsNarrative">—</div>
+
+              <div class="obs-gen-label">Suggested Follow-up <span class="obs-label-note">(for qualified clinician
+                  review)</span></div>
+              <div class="obs-actions-list" id="obsActionsList"></div>
+
+              <div class="obs-simulation-bar hidden" id="obsSimulationBar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                <span>Simulated anomaly active — results are for demonstration only.</span>
+                <button class="btn-ghost btn-ghost-small" id="resetSimulationBtn">Reset</button>
+              </div>
+            </section>
+
+            <!-- Simulate Anomaly -->
+            <section class="panel panel-flat" aria-labelledby="simPanelTitle">
+              <div class="panel-header">
+                <h2 class="panel-title" id="simPanelTitle">Interactive Simulation</h2>
+              </div>
+              <p class="sim-description">
+                Inject a simulated acute anomaly into the current patient telemetry to observe how the intelligence
+                pipeline responds.
+              </p>
+              <button class="btn-primary-clinical" id="injectAnomalyBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                Simulate Acute Anomaly
+              </button>
+            </section>
+
+          </aside><!-- /workspace-aside -->
+
+        </div><!-- /workspace-grid -->
+      </div><!-- /pageMonitoring -->
+
+      <!-- ======= PAGE: LONGITUDINAL TRENDS ======= -->
+      <div class="page-view" id="pageTrends">
+        <div class="page-header-inner">
+          <h1 class="page-h1">Longitudinal Trends</h1>
+          <p class="page-desc">Multi-signal trend analysis across the full monitoring window.</p>
         </div>
+        <div class="workspace-grid">
+          <div class="workspace-main">
+            <section class="panel" aria-labelledby="trendChartTitle">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <h2 class="panel-title" id="trendChartTitle">Multi-Signal Trend Overview</h2>
+                  <span class="panel-subtitle">Synergy index pattern across all 4 clinical domains</span>
+                </div>
+              </div>
+              <div class="chart-area chart-area-tall">
+                <canvas id="synergyRadarChart" aria-label="Multi-signal synergy radar chart"></canvas>
+              </div>
+            </section>
 
-        <div class="chart-wrapper">
-          <canvas id="mainTelemetryChart"></canvas>
-        </div>
-      </section>
-
-      <!-- Explainable Clinical Observation NLG Feed -->
-      <section class="card observation-card">
-        <div class="card-title-row">
-          <h2 class="card-title" style="color: var(--accent-rose);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            Explainable Clinical Observation Note (NLG)
-          </h2>
-          <div style="display: flex; gap: 10px;">
-            <button id="inspectFhirBtn" class="btn-secondary">Inspect FHIR R4</button>
-            <button id="injectAnomalyBtn" class="btn-primary">Simulate Acute Anomaly</button>
+            <section class="panel" aria-labelledby="trendTableTitle">
+              <div class="panel-header">
+                <h2 class="panel-title" id="trendTableTitle">Signal Trend Summary</h2>
+              </div>
+              <div class="table-scroll">
+                <table class="audit-table" aria-label="Signal trend summary table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Signal</th>
+                      <th scope="col">Trend Direction</th>
+                      <th scope="col">Change/Day</th>
+                      <th scope="col">R²</th>
+                      <th scope="col">7-Day Window</th>
+                      <th scope="col">Sustained Shift</th>
+                    </tr>
+                  </thead>
+                  <tbody id="trendTableBody"></tbody>
+                </table>
+              </div>
+            </section>
           </div>
+          <aside class="workspace-aside">
+            <section class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">Composite Risk Score</h2>
+              </div>
+              <div class="risk-gauge-container">
+                <div class="risk-gauge-outer" id="riskGaugeOuter">
+                  <div class="risk-gauge-inner">
+                    <span class="risk-gauge-num" id="riskGaugeNum">—</span>
+                    <span class="risk-gauge-label">/ 100</span>
+                    <span class="risk-gauge-sub" id="riskGaugeSub">RISK INDEX</span>
+                  </div>
+                </div>
+                <div class="risk-gauge-level" id="riskGaugeLevel">—</div>
+              </div>
+              <div class="risk-disclaimer">
+                Composite score (0–100) is an experimental decision-support output, not a validated probability of
+                disease. Always apply qualified clinical judgement.
+              </div>
+            </section>
+          </aside>
         </div>
+      </div><!-- /pageTrends -->
 
-        <h3 id="obsHeadline" class="observation-headline">...</h3>
-        <div id="obsNarrative" class="narrative-box">...</div>
-
-        <h4 style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase;">
-          Recommended Clinical Actions
-        </h4>
-        <div id="obsActionsList" class="actions-list"></div>
-      </section>
-
-    </div>
-
-    <!-- Right Sidebar Panel -->
-    <aside class="sidebar-panel">
-
-      <!-- Synergy Radar Card -->
-      <section class="card">
-        <div class="card-title-row">
-          <h2 class="card-title">Multi-Signal Synergy Radar</h2>
+      <!-- ======= PAGE: CLINICAL OBSERVATIONS ======= -->
+      <div class="page-view" id="pageObservations">
+        <div class="page-header-inner">
+          <h1 class="page-h1">Clinical Observations</h1>
+          <p class="page-desc">Generated observation notes with supporting evidence provenance.</p>
         </div>
-        <div class="radar-wrapper">
-          <canvas id="synergyRadarChart"></canvas>
+        <div class="workspace-single">
+          <section class="panel obs-full-panel">
+            <div class="panel-header">
+              <div class="panel-title-group">
+                <h2 class="panel-title">Generated Clinical Observation</h2>
+                <span class="panel-subtitle">Auto-generated from longitudinal signal analysis — review by qualified
+                  clinician required</span>
+              </div>
+              <div class="panel-actions">
+                <button class="btn-ghost" id="copyObsBtn2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div class="obs-full-sections">
+              <div class="obs-section">
+                <div class="obs-section-label">Observation Headline</div>
+                <div class="obs-section-headline" id="obsHeadline2">—</div>
+              </div>
+              <div class="obs-section">
+                <div class="obs-section-label">Supporting Evidence</div>
+                <div class="obs-section-body" id="obsNarrative2">—</div>
+              </div>
+              <div class="obs-section">
+                <div class="obs-section-label">Clinical Significance</div>
+                <div class="obs-section-body" id="obsSummaryMsg">—</div>
+              </div>
+              <div class="obs-section">
+                <div class="obs-section-label">Suggested Follow-up <span class="obs-label-note">(for qualified clinician
+                    review only)</span></div>
+                <div class="obs-actions-list" id="obsActionsList2"></div>
+              </div>
+              <div class="obs-section">
+                <div class="obs-section-label">Evidence Provenance</div>
+                <div class="obs-provenance" id="obsProvenance">—</div>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </div><!-- /pageObservations -->
 
-      <!-- Evidence & Audit Table Card -->
-      <section class="card">
-        <div class="card-title-row">
-          <h2 class="card-title">Evidence Audit Trail</h2>
+      <!-- ======= PAGE: REPORTS ======= -->
+      <div class="page-view" id="pageReports">
+        <div class="page-header-inner">
+          <h1 class="page-h1">Reports</h1>
+          <p class="page-desc">Daily and weekly summaries based on available wearable records.</p>
         </div>
-        <table class="evidence-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>Obs.</th>
-              <th>Base</th>
-              <th>Normal Range</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="evidenceTableBody"></tbody>
-        </table>
-      </section>
+        <div class="workspace-single">
+          <section class="panel">
+            <div class="panel-header">
+              <div class="panel-title-group">
+                <h2 class="panel-title">14-Day Summary Report</h2>
+                <span class="panel-subtitle" id="reportPeriodLabel">—</span>
+              </div>
+              <div class="panel-actions">
+                <button class="btn-ghost" id="exportReportBtn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Export JSON
+                </button>
+              </div>
+            </div>
 
-    </aside>
+            <div class="report-meta-grid" id="reportMetaGrid"></div>
 
-  </main>
+            <div class="report-section-title">Signal Summary by Day</div>
+            <div class="table-scroll">
+              <table class="audit-table" aria-label="Daily report table">
+                <thead>
+                  <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Signal</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">vs Baseline</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="reportTableBody"></tbody>
+              </table>
+            </div>
 
-  <!-- FHIR Modal Dialog -->
-  <div id="fhirModal" class="modal-overlay">
+            <div class="report-section-title" style="margin-top:24px">Generated Observation Summary</div>
+            <div class="obs-section-body" id="reportObsText">—</div>
+
+            <div class="data-quality-note">
+              Missing days indicate no sensor data was recorded for that period. Do not interpret as normal values.
+            </div>
+          </section>
+        </div>
+      </div><!-- /pageReports -->
+
+      <!-- ======= PAGE: DATA QUALITY ======= -->
+      <div class="page-view" id="pageQuality">
+        <div class="page-header-inner">
+          <h1 class="page-h1">Data Quality</h1>
+          <p class="page-desc">Record completeness, validation status, and artefact detection for the current patient
+            dataset.</p>
+        </div>
+        <div class="workspace-single">
+          <section class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Data Quality Summary</h2>
+            </div>
+            <div class="quality-stats-row" id="qualityStatsRow"></div>
+            <div class="table-scroll" style="margin-top:20px">
+              <table class="audit-table" aria-label="Data quality table">
+                <thead>
+                  <tr>
+                    <th scope="col">Signal</th>
+                    <th scope="col">Total Records</th>
+                    <th scope="col">Valid</th>
+                    <th scope="col">Missing</th>
+                    <th scope="col">Rejected (Artefact)</th>
+                    <th scope="col">Coverage</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="qualityTableBody"></tbody>
+              </table>
+            </div>
+            <div class="data-quality-note">
+              Artefact rejection uses physiological sanity bounds per signal. Missing values indicate no sensor reading
+              for that time period.
+            </div>
+          </section>
+        </div>
+      </div><!-- /pageQuality -->
+
+      <!-- ======= PAGE: FHIR / INTEGRATIONS ======= -->
+      <div class="page-view" id="pageFhir">
+        <div class="page-header-inner">
+          <h1 class="page-h1">FHIR / Integrations</h1>
+          <p class="page-desc">HL7 FHIR R4 RiskAssessment resource generated from the current longitudinal analysis.</p>
+        </div>
+        <div class="workspace-grid workspace-grid-fhir">
+          <div class="workspace-main">
+            <section class="panel">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <h2 class="panel-title">FHIR R4 RiskAssessment</h2>
+                  <span class="panel-subtitle">Generated from longitudinal multi-signal fusion — demo output only</span>
+                </div>
+                <div class="panel-actions">
+                  <button class="btn-ghost" id="copyFhirBtn">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    Copy JSON
+                  </button>
+                </div>
+              </div>
+              <div class="fhir-disclaimer">
+                This is a demo-generated FHIR R4 resource. No live EHR connection exists. Validate before use in any
+                clinical workflow.
+              </div>
+              <pre class="fhir-code" id="fhirJsonDisplay">Loading…</pre>
+            </section>
+          </div>
+          <aside class="workspace-aside">
+            <section class="panel">
+              <div class="panel-header">
+                <h2 class="panel-title">Resource Summary</h2>
+              </div>
+              <div class="fhir-summary-rows" id="fhirSummaryRows"></div>
+            </section>
+          </aside>
+        </div>
+      </div><!-- /pageFhir -->
+
+      <!-- ======= PAGE: SETTINGS (placeholder) ======= -->
+      <div class="page-view" id="pageSettings">
+        <div class="page-header-inner">
+          <h1 class="page-h1">Settings</h1>
+          <p class="page-desc">Application configuration and preferences.</p>
+        </div>
+        <div class="workspace-single">
+          <section class="panel">
+            <div class="panel-header">
+              <h2 class="panel-title">Environment</h2>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">Mode</span>
+              <span class="settings-value">Clinical Demo</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">Intelligence Engine</span>
+              <span class="settings-value">Longitudinal-Intelligence-v1.0</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">Baseline Window</span>
+              <span class="settings-value">14 days</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">MAD Multiplier</span>
+              <span class="settings-value">2.5 (≈98.7% normal range)</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">Deviation Warning Threshold (Z)</span>
+              <span class="settings-value">2.5</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">Deviation Critical Threshold (Z)</span>
+              <span class="settings-value">3.5</span>
+            </div>
+            <div class="settings-item">
+              <span class="settings-label">FHIR Standard</span>
+              <span class="settings-value">HL7 FHIR R4</span>
+            </div>
+          </section>
+        </div>
+      </div><!-- /pageSettings -->
+
+    </main><!-- /main-workspace -->
+  </div><!-- /app-body -->
+
+  <!-- FHIR Modal (retained for quick-access from monitoring page) -->
+  <div id="fhirModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="fhirModalTitle">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 style="font-size: 1.1rem; font-weight: 600;">HL7 FHIR R4 RiskAssessment Resource JSON</h3>
-        <button id="closeFhirModal" class="modal-close">&times;</button>
+        <h3 id="fhirModalTitle">HL7 FHIR R4 RiskAssessment Resource</h3>
+        <button id="closeFhirModal" class="modal-close-btn" aria-label="Close FHIR modal">&times;</button>
+      </div>
+      <div class="modal-disclaimer">
+        Demo output only. No live EHR connection. Validate before any clinical use.
       </div>
       <div class="modal-body">
         <pre id="fhirJsonContent"></pre>
@@ -145,4 +748,5 @@
 
   <script type="module" src="./src/ui/app.js"></script>
 </body>
+
 </html>
